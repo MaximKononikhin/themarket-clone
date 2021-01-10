@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
-import styles from '../styles/Home.module.css'
 import { IItem } from '../types'
 import { useEffect, useState } from 'react'
+import MainLayout from '../Layouts/MainLayout'
 
 type IHomeProps = {
   data: IItem[]
@@ -29,22 +29,24 @@ const Home = (props: IHomeProps) => {
   }, [skip])
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>themarket</title>
-        <link rel="icon" href="/themarket.ico" />
-        <meta name="description" content="Купить и проджать модную одежду по лучшим ценам."/>
-      </Head>
-      <ul>
-        {data.map(item =>
-          <li key={item.id}>
-            <h2>{item.model}</h2>
-            <h3>{item.size.us}</h3>
-            {item.images.map(image => <img key={image.id} src={image.urls[100]} alt={item.model}/>)}
-          </li>
-        )}
-      </ul>
-    </div>
+    <MainLayout>
+      <div>
+        <Head>
+          <title>themarket</title>
+          <link rel="icon" href="/images/themarket.ico" />
+          <meta name="description" content="Купить и проджать модную одежду по лучшим ценам."/>
+        </Head>
+        <ul>
+          {data.map(item =>
+            <li key={item.id}>
+              <h2>{item.model}</h2>
+              <h3>{item.size.us}</h3>
+              {item.images.map(image => <img key={image.id} src={image.urls[100]} alt={item.model}/>)}
+            </li>
+          )}
+        </ul>
+      </div>
+    </MainLayout>
   )
 }
 

@@ -1,0 +1,169 @@
+.mainHeader {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+
+  width: 100%;
+  
+  padding: 15px 10px;
+
+  font-size: 14px;
+
+  background-color: #fff;
+  border-bottom: 1px solid #d6e6e4;
+
+  @media (min-width: 930px) {
+    padding: 15px 30px;
+  }
+}
+
+.mainHeader__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin: 0 auto;
+
+  @media (min-width: 1240px) {
+    max-width: 1160px;
+  }
+}
+
+.mainHeader__burgerBtn {
+  padding: 0;
+  margin: 0;
+  margin-right: 20px;
+
+  background-color: unset;
+  border: unset;
+  outline: unset;
+
+  cursor: pointer;
+
+  @media (min-width: 930px) {
+    display: none;
+  }
+}
+
+.mainHeader__logo {
+  margin: 0;
+  margin-right: 20px;
+  padding: 0;
+
+  @media (max-width: 929px) {
+    display: none;
+  }
+}
+
+.mainHeader__searchForm {
+  position: relative;
+
+  display: flex;
+  flex-grow: 1;
+
+  max-width: 350px;
+
+  border: 1px solid #979797;
+  border-radius: 2px;
+
+  margin-right: 20px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+
+    background: url(/images/loop.svg) no-repeat 50%;
+  }
+
+  input {
+    width: 100%;
+    height: 36px;
+
+    padding-left: 35px;
+    padding-right: 10px;
+
+    font-size: 15px;
+
+    border: none;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.mainHeader__categoriesList {
+  display: flex;
+  flex-direction: row;
+
+  margin: 0;
+  margin-right: auto;
+  padding: 0;
+
+  list-style: none;
+
+  li {
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+    
+    a {
+      position: relative;
+
+      font-weight: 600;
+      font-size: 14px;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 929px) {
+    display: none;
+  }
+}
+
+.mainHeader__sellBtn {
+  width: 80px;
+  height: 42px;
+
+  margin-right: 40px;
+
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+
+  background-color: #fff;
+
+  outline: none;
+  border: 1px solid #000;
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  transition: all .3s ease;
+
+  &:hover {
+    color: #fff;
+
+    background-color: #000;
+  }
+
+  @media (max-width: 929px) {
+    margin-right: 20px;
+  }
+}
+
+.mainHeader__signInBtn {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+}
