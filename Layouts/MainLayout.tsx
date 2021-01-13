@@ -7,10 +7,10 @@ type IMainLayot = {
 
 const MainLayout: React.FC<IMainLayot> = ({ children}) => {
   return (
-    <>
+    <div>
       <Header/>
       {children}
-    </>
+    </div>
   )
 }
 

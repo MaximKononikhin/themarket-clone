@@ -61,12 +61,15 @@
   display: flex;
   flex-grow: 1;
 
-  max-width: 350px;
-
   border: 1px solid #979797;
   border-radius: 2px;
 
   margin-right: 20px;
+
+  @media (min-width: 930px) {
+    
+  max-width: 350px;
+  }
 
   &::before {
     content: '';
