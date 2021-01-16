@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next'
 import { IItem } from '../types'
 import { useEffect, useState } from 'react'
 import MainLayout from '../Layouts/MainLayout'
+import { endPoint } from '../utils/constants'
 
 type IHomeProps = {
   data: IItem[]
@@ -14,7 +15,7 @@ const Home = (props: IHomeProps) => {
 
   const infiniteScroll = async () => {
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-      const res =  await fetch(`https://api.themarket.io/items?&skip=${skip + 18}`);
+      const res =  await fetch(`${endPoint}/items?&skip=${skip + 18}`);
       const result = await res.json();
       setData([...data, ...result]);
       setSkip(prevSkip => prevSkip + 18);
@@ -34,7 +35,7 @@ const Home = (props: IHomeProps) => {
         <Head>
           <title>themarket</title>
           <link rel="icon" href="/images/themarket.ico" />
-          <meta name="description" content="Купить и проджать модную одежду по лучшим ценам."/>
+          <meta name="description" content="Купить и продать модную одежду по лучшим ценам."/>
         </Head>
         <ul>
           {data.map(item =>
@@ -51,7 +52,7 @@ const Home = (props: IHomeProps) => {
 }
 
 export const  getStaticProps: GetStaticProps<IHomeProps> = async () => {
-  const res = await fetch('https://api.themarket.io/items?&skip=0');
+  const res = await fetch(`${endPoint}/items`);
   const data = await res.json();
   return {
     props: {

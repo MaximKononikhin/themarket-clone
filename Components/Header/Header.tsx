@@ -16,7 +16,7 @@ const Header = () => {
           </Link>
         </div>
         <form className={s.mainHeader__searchForm}>
-          <input type="text"/>
+          <input type="text" placeholder="Поиск"/>
         </form>
         <ul className={s.mainHeader__categoriesList}>
           <li><a>Мужское</a></li>
