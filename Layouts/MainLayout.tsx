@@ -1,11 +1,11 @@
 import Header from "../Components/Header/Header"
 
-type IMainLayot = {
+type IMainLayout = {
   children: React.ReactNode
 }
 
 
-const MainLayout: React.FC<IMainLayot> = ({ children}) => {
+const MainLayout: React.FC<IMainLayout> = ({ children}) => {
   return (
     <div>
       <Header/>

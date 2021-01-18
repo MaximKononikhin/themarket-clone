@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { IItem } from '../types'
 import { useEffect, useState } from 'react'
@@ -42,7 +43,14 @@ const Home = (props: IHomeProps) => {
             <li key={item.id}>
               <h2>{item.model}</h2>
               <h3>{item.size.us}</h3>
-              {item.images.map(image => <img key={image.id} src={image.urls[100]} alt={item.model}/>)}
+              {item.images.map(image => 
+              <Image
+                key={`${image.id}`} 
+                width={100}
+                height={100}
+                src={image.urls[100]} 
+                alt={item.model}
+              />)}
             </li>
           )}
         </ul>
