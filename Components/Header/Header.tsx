@@ -9,7 +9,8 @@ import s from './Header.module.scss';
 
 const Header = () => {
 
-  const [isManModal, setManModal] = useState(false)
+  const [isManModal, setManModal] = useState(false);
+
   
   return (
     <header className={s.mainHeader}>
@@ -26,14 +27,25 @@ const Header = () => {
           <input type="text" placeholder="Поиск"/>
         </form>
         <ul className={s.mainHeader__categoriesList}>
-          <li><a>Мужское</a></li>
+          <li 
+            onMouseEnter={() => setManModal(true)}
+            onMouseLeave={() => setManModal(false)}
+          >
+            <a>Мужское</a>
+          </li>
           <li><a>Женское</a></li>
           <li><a>Безопасная сделка</a></li>
         </ul>
         <button className={s.mainHeader__sellBtn}>Продать</button>
         <a className={s.mainHeader__signInBtn}>Войти</a>
       </div>
-      <CategoriesModal data={menCategory}/>
+      {isManModal && (
+        <CategoriesModal
+          data={menCategory}
+          onMouseEnter={() => setManModal(true)}
+          onMouseLeave={() => setManModal(false)}
+        />
+      )}
     </header>
   )
 }
