@@ -1,6 +1,8 @@
+import { ICategoriesList } from "../types";
+
 export const endPoint = 'https://api.themarket.io';
 
-export const menCategory = {
+export const menCategory: ICategoriesList = {
   title: 'Мужское',
   sex: 'men',
   categories: [
@@ -79,7 +81,7 @@ export const menCategory = {
   ]
 };
 
-export const womenCategory = {
+export const womenCategory: ICategoriesList = {
   title: 'Женское',
   sex: 'women',
   categories: [

@@ -1,3 +1,5 @@
+import { menCategory } from "../utils/constants"
+
 type IImage = {
   id: string,
   urls: {
@@ -54,3 +56,18 @@ export type IItem = {
   status: number,
   userId: string
 }
+
+type CategoryType = {
+  title: string,
+  categoriesIds: number[],
+  categoriesTypes: Array<{
+    name: string,
+    id: number
+  }>
+};
+
+export type ICategoriesList = {
+  title: string,
+  sex: string,
+  categories: CategoryType[]
+};

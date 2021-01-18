@@ -1,14 +1,21 @@
 import Link from 'next/link';
+import { useState } from 'react';
+import { ICategoriesList } from '../../types';
+import { menCategory } from '../../utils/constants';
+import CategoriesModal from '../CategoriesModal/CategoriesModal';
 
 import s from './Header.module.scss';
 
 
 const Header = () => {
+
+  const [isManModal, setManModal] = useState(false)
+  
   return (
     <header className={s.mainHeader}>
       <div className={s.mainHeader__wrapper}>
         <button className={s.mainHeader__burgerBtn}>
-          <img src="/images/gamburger.svg" width="20" height="20" alt="menu-btn"/>
+          <img src="/images/hamburger.svg" width="20" height="20" alt="menu-btn"/>
         </button>
         <div className={s.mainHeader__logo}>
           <Link href={'/'}>
@@ -26,6 +33,7 @@ const Header = () => {
         <button className={s.mainHeader__sellBtn}>Продать</button>
         <a className={s.mainHeader__signInBtn}>Войти</a>
       </div>
+      <CategoriesModal data={menCategory}/>
     </header>
   )
 }
