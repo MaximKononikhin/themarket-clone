@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { IItem } from '../types'
@@ -33,11 +32,6 @@ const Home = (props: IHomeProps) => {
   return (
     <MainLayout>
       <div>
-        <Head>
-          <title>themarket</title>
-          <link rel="icon" href="/images/themarket.ico" />
-          <meta name="description" content="Купить и продать модную одежду по лучшим ценам."/>
-        </Head>
         <ul>
           {data.map(item =>
             <li key={item.id}>

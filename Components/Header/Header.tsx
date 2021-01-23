@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { ICategoriesList } from '../../types';
-import { menCategory } from '../../utils/constants';
+import { menCategory, womenCategory } from '../../utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
 
 import s from './Header.module.scss';
 
+const getUrl = (data: ICategoriesList) => {
+  const ids = data.categories.flatMap(category => category.categoriesIds);
+  return `/categories/search?${ids.map(id => `&concreteCategoryIds=${id}`).join('')}&sex=${data.sex}`
+}
 
 const Header = () => {
 
-  const [isManModal, setManModal] = useState(false);
-
+  const [data, setData] = useState<ICategoriesList | null>(null);
   
   return (
     <header className={s.mainHeader}>
@@ -28,22 +31,27 @@ const Header = () => {
         </form>
         <ul className={s.mainHeader__categoriesList}>
           <li 
-            onMouseEnter={() => setManModal(true)}
-            onMouseLeave={() => setManModal(false)}
+            onMouseEnter={() => setData(menCategory)}
+            onMouseLeave={() => setData(null)}
           >
-            <a>Мужское</a>
+            <Link href={getUrl(menCategory)}>Мужское</Link>
           </li>
-          <li><a>Женское</a></li>
+          <li
+            onMouseEnter={() => setData(womenCategory)}
+            onMouseLeave={() => setData(null)}
+          >
+            <Link href={getUrl(womenCategory)}>Женское</Link>
+          </li>
           <li><a>Безопасная сделка</a></li>
         </ul>
         <button className={s.mainHeader__sellBtn}>Продать</button>
         <a className={s.mainHeader__signInBtn}>Войти</a>
       </div>
-      {isManModal && (
+      {data && (
         <CategoriesModal
-          data={menCategory}
-          onMouseEnter={() => setManModal(true)}
-          onMouseLeave={() => setManModal(false)}
+          data={data}
+          onMouseEnter={() => setData(data)}
+          onMouseLeave={() => setData(null)}
         />
       )}
     </header>

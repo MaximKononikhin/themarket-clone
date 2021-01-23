@@ -137,7 +137,7 @@ export const womenCategory: ICategoriesList = {
         {name: 'Шорты', id: 78}, 
         {name: 'Спортивные штаны', id: 79}, 
         {name: 'Плавки', id: 80},
-        {name: 'Юбки', id: 97},
+        {name: 'Юбки', id: 98},
       ]
     },
     {

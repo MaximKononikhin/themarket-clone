@@ -50,6 +50,8 @@
   margin-right: 20px;
   padding: 0;
 
+  cursor: pointer;
+
   @media (max-width: 929px) {
     display: none;
   }
@@ -116,10 +118,6 @@
     padding: 27px 10px;
 
     cursor: pointer;
-
-    &:not(:last-child) {
-      margin-right: 20px;
-    }
 
     &:hover {
       border-bottom: 1px solid #000;

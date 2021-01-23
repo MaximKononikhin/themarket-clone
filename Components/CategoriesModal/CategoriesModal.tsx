@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { ICategoriesList } from '../../types'
 import Portal from '../Portal/Portal'
@@ -20,29 +21,30 @@ const CategoriesModal: React.FC<IProps> = (props) => {
           onMouseLeave={props.onMouseLeave}
           className={s.categoreisModal__wrapper}
         >
-          <div
-            onMouseEnter={props.onMouseEnter}
-            onMouseLeave={props.onMouseLeave}
-            className={s.categoreisModal__subwrapper}
+          <div className={s.categoreisModal__subwrapper}
           >
             {props.data.categories.map((elem, i) =>
               <div
                 key={`id${i}${elem.title}`}
                 className={s.categoreisModal__column}
               >
-                <a
+                <Link
                   key={`id${i}${elem.title}`}
-                  className={s.categoreisModal__columnTitle}
+                  href={`/categories/search?sex=${props.data.sex}${elem.categoriesIds.map((id => `&concreteCategoryIds=${id}`)).join('')}`}
                 >
                   {elem.title}
-                </a>
+                </Link>
                 <ul
                   key={`${i}${elem.title}`}
                   className={s.categoreisModal__list}
                 >
                   {elem.categoriesTypes.map((item) =>
                     <li key={`id${elem.title}-${item.id}`}>
-                      <a>{item.name}</a>
+                      <Link
+                        href={`/categories/search?sex=${props.data.sex}&concreteCategoryIds=${item.id}`}
+                      >
+                        {item.name}
+                      </Link>
                     </li>
                   )}
                 </ul>
@@ -54,5 +56,7 @@ const CategoriesModal: React.FC<IProps> = (props) => {
     </Portal>
   )
 }
+
+
 
 export default CategoriesModal
