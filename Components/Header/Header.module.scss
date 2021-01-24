@@ -24,6 +24,10 @@
 
   margin: 0 auto;
 
+  @media (max-width: 930px) {
+    height: 70px;
+  }
+
   @media (min-width: 1240px) {
     max-width: 1160px;
   }

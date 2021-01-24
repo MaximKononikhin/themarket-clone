@@ -9,16 +9,10 @@ type IProps = {
   data: IItem[]
 }
 
-const getIds = (ids: string | string[]) => {
-  return Array.isArray(ids) ? ids.map(id => `&concreteCategoryIds[]=${id}`).join('') : `&concreteCategoryIds[]=${ids}`
-}
+const SearchPage: React.FC<IProps> = (props) => {
+  const {name} = useRouter().query;
 
-const CategoriesPage: React.FC<IProps> = (props) => {
-  const {concreteCategoryIds, sex} = useRouter().query;
-
-  const items = useInfiteScroll(
-    `${getIds(concreteCategoryIds)}&sex=${sex}`
-  );
+  const items = useInfiteScroll(`query=${name}`)
 
   return (
       <div>
@@ -55,8 +49,8 @@ const CategoriesPage: React.FC<IProps> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ req, res, query }) => {
-  const {concreteCategoryIds, sex} = query;
-  const result = await fetch(`${endPoint}/items?${getIds(concreteCategoryIds)}&sex=${sex}`);
+  const {name} = query;
+  const result = await fetch(`${endPoint}/items?query=${name}`);
   const data = await result.json();
   return {
     props: {
@@ -65,4 +59,4 @@ export const getServerSideProps: GetServerSideProps<IProps> = async ({ req, res,
   }
 }
 
-export default CategoriesPage
+export default SearchPage

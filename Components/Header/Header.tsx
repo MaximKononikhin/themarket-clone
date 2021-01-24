@@ -1,7 +1,8 @@
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { ICategoriesList } from '../../types';
-import { menCategory, womenCategory } from '../../utils/constants';
+import { endPoint, menCategory, womenCategory } from '../../utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
 
 import s from './Header.module.scss';
@@ -12,8 +13,19 @@ const getUrl = (data: ICategoriesList) => {
 }
 
 const Header = () => {
-
   const [data, setData] = useState<ICategoriesList | null>(null);
+  const [search, setSearch] = useState('');
+
+  const router = useRouter();
+
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    router.push({
+      pathname: '/search/[name]',
+      query: {name: search}
+    })
+  }
   
   return (
     <header className={s.mainHeader}>
@@ -26,8 +38,11 @@ const Header = () => {
             <img src="/images/logo_header.svg" width="80" height="12" alt="logo"/>
           </Link>
         </div>
-        <form className={s.mainHeader__searchForm}>
-          <input type="text" placeholder="Поиск"/>
+        <form className={s.mainHeader__searchForm} onSubmit={handleSubmit}>
+          <input type="text" placeholder="Поиск"
+            value={search}
+            onChange={(evt) => setSearch(evt.target.value)}
+          />
         </form>
         <ul className={s.mainHeader__categoriesList}>
           <li 
