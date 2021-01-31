@@ -11,11 +11,15 @@
     "next": "10.0.5",
     "node-sass": "^5.0.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-swipeable-views": "^0.13.9",
+    "react-swipeable-views-utils": "^0.14.0-alpha.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
+    "@types/react-swipeable-views": "^0.13.0",
+    "@types/react-swipeable-views-utils": "^0.13.2",
     "typescript": "^4.1.3"
   }
 }

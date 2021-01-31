@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { IItem } from '../types'
-import MainLayout from '../Layouts/MainLayout'
 import { endPoint } from '../utils/constants'
 import useInfiteScroll from '../hooks/useInfiteScroll'
+import Item from '../Components/Item/Item'
 
 type IHomeProps = {
   data: IItem[]
@@ -14,34 +14,14 @@ const Home = (props: IHomeProps) => {
 
   return (
       <div>
-        <ul>
+        <div>
           {props.data.map(item =>
-            <li key={item.id}>
-              <h2>{item.model}</h2>
-              <h3>{item.size.us}</h3>
-              {item.images.map(image => 
-              <Image
-                key={`${image.id}`} 
-                width={100}
-                height={100}
-                src={image.urls[100]} 
-                alt={item.model}
-              />)}
-            </li>
+            <Item data={item} key={item.id}/>
           )}
           {items.map(item =>
-            <li key={item.id}>
-              <h2>{item.model}</h2>
-              <h3>{item.size.us}</h3>
-              {item.images.map(image => 
-              <img
-                key={`${image.id}`} 
-                src={image.urls[100]} 
-                alt={item.model}
-              />)}
-            </li>
+            <Item data={item} key={item.id}/>
           )}
-        </ul>
+        </div>
       </div>
   )
 }

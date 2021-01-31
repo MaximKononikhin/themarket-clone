@@ -1,5 +1,7 @@
 import Head from 'next/head';
+
 import Header from "../Components/Header/Header";
+import s from './MainLayout.module.scss';
 
 type IMainLayout = {
   children: React.ReactNode
@@ -15,7 +17,9 @@ const MainLayout: React.FC<IMainLayout> = ({ children}) => {
         <meta name="description" content="Купить и продать модную одежду по лучшим ценам."/>
       </Head>
       <Header/>
-      {children}
+      <div className={s.container}>
+        {children}
+      </div>
     </div>
   )
 }

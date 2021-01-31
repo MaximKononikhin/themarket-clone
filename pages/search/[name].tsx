@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
+import Item from '../../Components/Item/Item';
 import useInfiteScroll from '../../hooks/useInfiteScroll';
 import { IItem } from '../../types';
 import { endPoint } from '../../utils/constants';
@@ -15,36 +16,16 @@ const SearchPage: React.FC<IProps> = (props) => {
   const items = useInfiteScroll(`query=${name}`)
 
   return (
+    <div>
       <div>
-        <ul>
-          {props.data.map(item =>
-            <li key={item.id}>
-              <h2>{item.model}</h2>
-              <h3>{item.size.us}</h3>
-              {item.images.map(image => 
-              <Image
-                key={`${image.id}`} 
-                width={100}
-                height={100}
-                src={image.urls[100]} 
-                alt={item.model}
-              />)}
-            </li>
-          )}
-          {items.map(item =>
-            <li key={item.id}>
-              <h2>{item.model}</h2>
-              <h3>{item.size.us}</h3>
-              {item.images.map(image => 
-              <img
-                key={`${image.id}`} 
-                src={image.urls[100]} 
-                alt={item.model}
-              />)}
-            </li>
-          )}
-        </ul>
+        {props.data.map(item =>
+          <Item data={item} key={item.id}/>
+        )}
+        {items.map(item =>
+          <Item data={item} key={item.id}/>
+        )}
       </div>
+    </div>
   )
 }
 
