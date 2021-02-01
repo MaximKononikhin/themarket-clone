@@ -2,7 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { ICategoriesList } from '../../types';
-import { endPoint, menCategory, womenCategory } from '../../utils/constants';
+import { menCategory, womenCategory } from '../../utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
 
 import s from './Header.module.scss';
@@ -12,7 +12,11 @@ const getUrl = (data: ICategoriesList) => {
   return `/categories/search?${ids.map(id => `&concreteCategoryIds=${id}`).join('')}&sex=${data.sex}`
 }
 
-const Header = () => {
+type IProps = {
+  onSignInBtnClick: () => void;
+}
+
+const Header: React.FC<IProps> = (props) => {
   const [data, setData] = useState<ICategoriesList | null>(null);
   const [search, setSearch] = useState('');
 
@@ -60,7 +64,9 @@ const Header = () => {
           <li><a>Безопасная сделка</a></li>
         </ul>
         <button className={s.mainHeader__sellBtn}>Продать</button>
-        <a className={s.mainHeader__signInBtn}>Войти</a>
+        <a className={s.mainHeader__signInBtn}
+          onClick={props.onSignInBtnClick}
+        >Войти</a>
       </div>
       {data && (
         <CategoriesModal
