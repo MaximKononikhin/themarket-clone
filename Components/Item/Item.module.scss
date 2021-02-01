@@ -3,6 +3,10 @@
   width: 260px;
 
   margin-bottom: 35px;
+  
+  &:not(:nth-child(4n)) {
+    margin-right: 66px;
+  }
 }
 
 .item__photoWrapper {

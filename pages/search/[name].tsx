@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import Item from '../../Components/Item/Item';
 import useInfiteScroll from '../../hooks/useInfiteScroll';
+import ItemsContainer from '../../Layouts/ItemsContainer/ItemsContainer';
 import { IItem } from '../../types';
 import { endPoint } from '../../utils/constants';
 
@@ -16,16 +17,14 @@ const SearchPage: React.FC<IProps> = (props) => {
   const items = useInfiteScroll(`query=${name}`)
 
   return (
-    <div>
-      <div>
-        {props.data.map(item =>
-          <Item data={item} key={item.id}/>
-        )}
-        {items.map(item =>
-          <Item data={item} key={item.id}/>
-        )}
-      </div>
-    </div>
+    <ItemsContainer>
+      {props.data.map(item =>
+        <Item data={item} key={item.id}/>
+      )}
+      {items.map(item =>
+        <Item data={item} key={item.id}/>
+      )}
+    </ItemsContainer>
   )
 }
 

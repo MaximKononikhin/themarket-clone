@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import Header from "../Components/Header/Header";
+import Header from "../../Components/Header/Header";
 import s from './MainLayout.module.scss';
 
 type IMainLayout = {

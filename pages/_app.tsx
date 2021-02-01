@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app'
-import MainLayout from '../Layouts/MainLayout'
+import MainLayout from '../Layouts/MainLayout/MainLayout'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
