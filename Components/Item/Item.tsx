@@ -1,3 +1,5 @@
+import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 import { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize } from 'react-swipeable-views-utils';
@@ -21,60 +23,71 @@ const Item: React.FC<IProps> = ({ data }) => {
     setImageNav(+current);
   };
 
+  const router = useRouter();
+
 
   return (
-    <div className={s.item}>
+
+    <div className={s.item} onClick={() => {
+      router.push(`/item/${data.id}`);
+    }}>
       <div className={s.item__likes}>
-        <img src="/images/heart.svg" className={s.item__heart} width="28" height="28"/>
+        <img src="/images/heart.svg" className={s.item__heart} width="28" height="28" />
         {data.likesCount}
       </div>
       <VirtualizeSwipeableViews
-          index={imageNav}
-          onChangeIndex={onSwipeImage}
-          slideRenderer={({ key, index }) => {
-            return (
-              <div key={`wrapper ${key}`} className={s.item__photoWrapper}>
-                <div style={{backgroundImage: `url(${data.images[index].urls[455]})`}}
-                  className={s.item__photo}
-                  key={data.images[index].id}
-                >
-                </div>
-
-                {imageNav !== 0 && (
-                  <button
-                    key={`prevBtn ${key}`}
-                    onClick={() => onSwipeImage(imageNav - 1)}
-                    className={s.item__leftArrow}
-                  >
-                    <img src="/images/leftArrow.svg" width="16" height="27" alt=""/>
-                  </button>
-                )}
-
-                {imageNav !== data.images.length - 1 && (
-                  <button
-                    key={`nextBtn ${key}`}
-                    onClick={() => onSwipeImage(imageNav + 1)}
-                    className={s.item__rightArrow}
-                  >
-                    <img src="/images/rightArrow.svg" width="16" height="27" alt=""/>
-                  </button>
-                )}
+        index={imageNav}
+        onChangeIndex={onSwipeImage}
+        slideRenderer={({ key, index }) => {
+          return (
+            <div key={`wrapper ${key}`} className={s.item__photoWrapper}>
+              <div style={{ backgroundImage: `url(${data.images[index].urls[455]})` }}
+                className={s.item__photo}
+                key={data.images[index].id}
+              >
               </div>
-            );
+            </div>
+          );
+        }}
+        slideCount={data.images.length}
+        overscanSlideBefore={uploadImagesCount}
+        overscanSlideAfter={uploadImagesCount}
+      />
+
+      {imageNav !== 0 && (
+        <button
+          onClick={(evt) => {
+            evt.stopPropagation();
+            onSwipeImage(imageNav - 1);
           }}
-          slideCount={data.images.length}
-          overscanSlideBefore={uploadImagesCount}
-          overscanSlideAfter={uploadImagesCount}
-        />
-        <p className={s.item__date}>{new Date(data.addedAt).toLocaleDateString('ru-ru')}</p>
-        <p className={s.item__brand}>{data.brand}</p>
-        <p className={s.item__model}>{data.model}</p>
-        <p className={s.item__size}>
-          {isNaN(+data.size.us)? data.size.us : `${data.size.us} US`}
-        </p>
-        <p className={s.item__size}>{data.price} руб.</p>
+          className={s.item__leftArrow}
+        >
+          <img src="/images/leftArrow.svg" width="16" height="27" alt="" />
+        </button>
+      )}
+
+      {imageNav !== data.images.length - 1 && (
+        <button
+        onClick={(evt) => {
+          evt.stopPropagation();
+          onSwipeImage(imageNav + 1);
+        }}
+          className={s.item__rightArrow}
+        >
+          <img src="/images/rightArrow.svg" width="16" height="27" alt="" />
+        </button>
+      )}
+      <p className={s.item__date}>{new Date(data.addedAt).toLocaleDateString('ru-ru')}</p>
+      <p className={s.item__brand}>{data.brand}</p>
+      <p className={s.item__model}>{data.model}</p>
+      <p className={s.item__size}>
+        {isNaN(+data.size.us) ? data.size.us : `${data.size.us} US`}
+      </p>
+      <p className={s.item__size}>{data.price} руб.</p>
     </div>
-    
+
+
+
 
   )
 }

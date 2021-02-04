@@ -5,23 +5,27 @@ import { endPoint } from '../utils/constants'
 import useInfiteScroll from '../hooks/useInfiteScroll'
 import Item from '../Components/Item/Item'
 import ItemsContainer from '../Layouts/ItemsContainer/ItemsContainer'
+import Loader from '../Components/Loader/Loader'
 
 type IHomeProps = {
   data: IItem[]
 }
 
 const Home = (props: IHomeProps) => {
-  const items = useInfiteScroll('');
+  const {items, isLoading} = useInfiteScroll('');
 
   return (
-    <ItemsContainer>
-      {props.data.map(item =>
-        <Item data={item} key={item.id}/>
-      )}
-      {items.map(item =>
-        <Item data={item} key={item.id}/>
-      )}
-    </ItemsContainer>
+    <>
+      <ItemsContainer>
+        {props.data.map(item =>
+          <Item data={item} key={item.id}/>
+        )}
+        {items.map(item =>
+          <Item data={item} key={item.id}/>
+        )}
+      </ItemsContainer>
+      {isLoading && <Loader />}
+    </>
   )
 }
 

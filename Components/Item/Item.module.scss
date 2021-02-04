@@ -3,8 +3,9 @@
   width: 260px;
 
   margin-bottom: 35px;
+  cursor: pointer;
   
-  &:not(:nth-child(4n)) {
+  &:not(:nth-child(3n)) {
     margin-right: 66px;
   }
 }
@@ -35,7 +36,7 @@
 .item__leftArrow,
 .item__rightArrow {
   position: absolute;
-  top: 50%;
+  top: 32%;
   z-index: 2;
 
   border: none;
