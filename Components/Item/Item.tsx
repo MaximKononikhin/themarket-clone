@@ -1,5 +1,4 @@
 import { useRouter } from 'next/dist/client/router';
-import Link from 'next/link';
 import { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize } from 'react-swipeable-views-utils';
