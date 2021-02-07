@@ -1,4 +1,3 @@
-import { menCategory } from "../utils/constants"
 
 type IImage = {
   id: string,
@@ -71,3 +70,42 @@ export type ICategoriesList = {
   sex: string,
   categories: CategoryType[]
 };
+
+export type IUser = {
+  activeItems: number,
+  addedAt: Date,
+  avatar: string | null,
+  firstName: string,
+  id: string,
+  isBanned: boolean,
+  isCardVerified: boolean,
+  isEmailAttached: boolean,
+  isPhoneVerified: boolean,
+  isVkAttached: boolean,
+  itemsApprovedAndArchived: number,
+  itemsSent: number,
+  reviewsCount: number,
+  sellerScore: number,
+  soldItems: number,
+  vkPhoto200: string,
+}
+
+export type IReview = {
+  createdAt: Date,
+  dealId: string
+  item: {
+    brand: string,
+    model: string
+  },
+  itemId: string,
+  rating: number,
+  reviewer: {
+    id: string,
+    firstName: string,
+    image: string
+  },
+  reviewerId: string,
+  text: string,
+  type: string,
+  userIdUnderReview: string,
+}

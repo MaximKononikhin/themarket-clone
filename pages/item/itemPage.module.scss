@@ -184,6 +184,10 @@
   margin-bottom: 5px;
   border-radius: 4px;
 
+  &:disabled {
+    background-color: rgb(155, 155, 155);
+  }
+
   &_green {
     background-color: rgb(126, 211, 33);
     
@@ -196,6 +200,14 @@
 
   img {
     margin-right: 8px;
+  }
+}
+
+.itemPage__secondary {
+  width: 100%;
+  
+  @media(min-width: 930px) {
+    width: 600px;
   }
 }
 
@@ -264,6 +276,58 @@
   p {
     font-size: 15px;
     line-height: 20px;
+  }
+}
+
+.sellerInfo {
+  padding: 22px 0;
+
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.sellerInfo__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  margin-bottom: 24px;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.sellerInfo__stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 95px;
+
+    margin-right: 24px;
+
+    h3 {
+      margin: 0;
+
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    p {
+      margin: 0;
+
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 }
 

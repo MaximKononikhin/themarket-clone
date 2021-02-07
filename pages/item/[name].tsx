@@ -2,19 +2,26 @@ import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize } from 'react-swipeable-views-utils';
+import Review from '../../Components/Review/Review';
 
-import { IItem } from '../../types';
+import { IItem, IReview, IUser } from '../../types';
 import { endPoint } from '../../utils/constants';
 import s from './itemPage.module.scss';
 
 type IProps = {
-  data: IItem
+  item: IItem,
+  user: IUser
+  reviewsArray: {
+    reviews: IReview[]
+  }
 }
 
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
-const SearchPage: React.FC<IProps> = ({ data }) => {
+const SearchPage: React.FC<IProps> = ({ item, user, reviewsArray }) => {
   const [imageNav, setImageNav] = useState(0);
+
+  const reviews = reviewsArray.reviews;
 
   const onSwipeImage = (current: number) => {
     setImageNav(+current);
@@ -22,23 +29,24 @@ const SearchPage: React.FC<IProps> = ({ data }) => {
 
   const uploadImagesCount = 2;
 
+
   return (
     <div className={s.itemPage}>
       <header className={s.itemPage__header}>
         <div className={s.itemPage__name}>
-          <h2>{data.brand}</h2>
-          <p>{data.model}</p>
+          <h2>{item.brand}</h2>
+          <p>{item.model}</p>
         </div>
         <div className={s.itemPage__sizePrice}>
-          <h2>{data.price} руб.</h2>
-          <p>{isNaN(+data.size.us) ? data.size.us : `${data.size.us} US`}</p>
+          <h2>{item.price} руб.</h2>
+          <p>{isNaN(+item.size.us) ? item.size.us : `${item.size.us} US`}</p>
         </div>
       </header>
 
       <div className={s.itemPage__content}>
         <div className={s.itemPage__photos}>
           <p className={s.itemPage__date}>
-            {new Date(data.addedAt).toLocaleDateString('ru-ru')}
+            {new Date(item.addedAt).toLocaleDateString('ru-ru')}
           </p>
           <div className={s.itemPage__gallery}>
             <VirtualizeSwipeableViews
@@ -47,15 +55,15 @@ const SearchPage: React.FC<IProps> = ({ data }) => {
               slideRenderer={({ key, index }) => {
                 return (
                   <div key={`wrapper ${key}`} className={s.itemPage__photoWrapper}>
-                    <div style={{ backgroundImage: `url(${data.images[index].urls[670]})` }}
+                    <div style={{ backgroundImage: `url(${item.images[index].urls[670]})` }}
                       className={s.itemPage__photo}
-                      key={data.images[index].id}
+                      key={item.images[index].id}
                     >
                     </div>
                   </div>
                 );
               }}
-              slideCount={data.images.length}
+              slideCount={item.images.length}
               overscanSlideBefore={uploadImagesCount}
               overscanSlideAfter={uploadImagesCount}
             />
@@ -71,7 +79,7 @@ const SearchPage: React.FC<IProps> = ({ data }) => {
               </button>
             )}
 
-            {imageNav !== data.images.length - 1 && (
+            {imageNav !== item.images.length - 1 && (
               <button
                 onClick={(evt) => {
                   evt.stopPropagation();
@@ -85,40 +93,79 @@ const SearchPage: React.FC<IProps> = ({ data }) => {
           </div>
         </div>
         <div className={s.itemPage__btns}>
-          <button className={`${s.itemPage__btn} ${s.itemPage__btn_green}`}>Купить</button>
+          <button className={`${s.itemPage__btn} ${s.itemPage__btn_green}`}
+            disabled={item.status === 7}>
+            {item.status === 7 ? `Продано` : `Купить`}
+          </button>
           <button className={s.itemPage__btn}>Связаться с продавцом</button>
           <button className={s.itemPage__btn}>
             <img src="/images/heart.svg" className={s.item__heart} width="28" height="28" />
             Сохранить
           </button>
           <p>
-            {data.likesCount}
-            {data.likesCount === 2 || data.likesCount === 3? ` человека ` : ` человек `} 
+            {item.likesCount}
+            {item.likesCount === 2 || item.likesCount === 3 ? ` человека ` : ` человек `}
             хотят эту вещь
           </p>
         </div>
       </div>
-      <div className={s.itemPage__description}>
-        <h3>Описание вещи от продавца</h3>
-        <ul>
-          {data.description.split('\n').map(item =>
-            <li key={item}>
-              {item}
-            </li>
-          )}
-        </ul>
-      </div>
+      <div className={s.itemPage__secondary}>
+        <div className={s.itemPage__description}>
+          <h3>Описание вещи от продавца</h3>
+          <ul>
+            {item.description.split('\n').map((item, index) =>
+              <li key={item + index}>
+                {item}
+              </li>
+            )}
+          </ul>
+        </div>
 
-      <div className={s.itemPage__from}>
-        <h3>Откуда</h3>
-          <p>{data.city}</p>
-      </div>
+        <div className={s.itemPage__from}>
+          <h3>Откуда</h3>
+          <p>{item.city}</p>
+        </div>
 
-      <div className={s.itemPage__condition}>
-        <h3>Состояние</h3>
-          <p>{data.conditionId}/10</p>
+        <div className={s.itemPage__condition}>
+          <h3>Состояние</h3>
+          <p>{item.conditionId}/10</p>
+        </div>
+
+        <div className={s.sellerInfo}>
+          <div className={s.sellerInfo__header}>
+            <span>
+              <h3>Продавец {user.firstName}</h3>
+              <p>На themarket с {new Date(user.addedAt).toLocaleDateString('ru-ru')}</p>
+            </span>
+            {user.avatar && <img src={user.avatar} width="64" height="64" />}
+          </div>
+          <div className={s.sellerInfo__stats}>
+            <span>
+              <h3>{user.sellerScore}</h3>
+              <p>рейтинг</p>
+            </span>
+            <span>
+              <h3>{user.soldItems}</h3>
+              <p>безопасные продажи</p>
+            </span>
+            <span>
+              <h3>{user.activeItems}</h3>
+              <p>активные объявления</p>
+            </span>
+          </div>
+        </div>
+
+        {reviews.length > 0 &&
+          <div className={s.reviews}>
+            <h2>{reviews.length} отзовов о продавце</h2>
+            {reviews.map(review =>
+              <Review review={review} key={review.dealId} />
+            )}
+          </div>
+        }
+
+
       </div>
-      
     </div>
 
 
@@ -128,11 +175,17 @@ const SearchPage: React.FC<IProps> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ req, res, query }) => {
   const { name } = query;
-  const result = await fetch(`${endPoint}/items/${name}`);
-  const data = await result.json();
+  const itemResult = await fetch(`${endPoint}/items/${name}`);
+  const item: IItem = await itemResult.json();
+  const userResult = await fetch(`${endPoint}/users/${item.userId}`);
+  const user: IUser = await userResult.json();
+  const reviewsResult = await fetch(`${endPoint}/users/${item.userId}/reviews?type=supplier`);
+  const reviewsArray = await reviewsResult.json();
   return {
     props: {
-      data,
+      item,
+      user,
+      reviewsArray
     },
   }
 }
