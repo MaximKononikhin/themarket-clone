@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IItem } from '../types';
 import { endPoint } from '../utils/constants';
 
-const useInfiteScroll = (url: string) => {
+const useInfiniteScroll = (url: string) => {
   const [skip, setSkip] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const [items, setItems] = useState<IItem[]>([])
@@ -33,4 +33,4 @@ const useInfiteScroll = (url: string) => {
   return {items, isLoading};
 }
 
-export default useInfiteScroll
+export default useInfiniteScroll

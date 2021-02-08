@@ -8,6 +8,14 @@
   &:not(:nth-child(3n)) {
     margin-right: 66px;
   }
+
+  @media(max-width: 929px) {
+    width: 40%;
+
+    &:not(:nth-child(3n)) {
+      margin-right: 0;
+    }
+  }
 }
 
 .item__photoWrapper {
@@ -44,6 +52,10 @@
   background-color: unset;
 
   cursor: pointer;
+
+  @media(max-width: 929px) {
+    display: none;
+  }
 }
 
 .item__leftArrow {

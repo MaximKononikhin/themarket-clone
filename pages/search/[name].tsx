@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import Item from '../../Components/Item/Item';
 import Loader from '../../Components/Loader/Loader';
-import useInfiteScroll from '../../hooks/useInfiteScroll';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import ItemsContainer from '../../Layouts/ItemsContainer/ItemsContainer';
 import { IItem } from '../../types';
 import { endPoint } from '../../utils/constants';
@@ -14,7 +14,7 @@ type IProps = {
 const SearchPage: React.FC<IProps> = (props) => {
   const {name} = useRouter().query;
 
-  const {items, isLoading} = useInfiteScroll(`query=${name}`)
+  const {items, isLoading} = useInfiniteScroll(`query=${name}`)
 
   return (
     <>

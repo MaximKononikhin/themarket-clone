@@ -3,7 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import Item from '../../Components/Item/Item';
 import Loader from '../../Components/Loader/Loader';
-import useInfiteScroll from '../../hooks/useInfiteScroll';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import ItemsContainer from '../../Layouts/ItemsContainer/ItemsContainer';
 import { IItem } from '../../types';
 import { endPoint } from '../../utils/constants';
@@ -19,7 +19,7 @@ const getIds = (ids: string | string[]) => {
 const CategoriesPage: React.FC<IProps> = (props) => {
   const {concreteCategoryIds, sex} = useRouter().query;
 
-  const {items, isLoading} = useInfiteScroll(
+  const {items, isLoading} = useInfiniteScroll(
     `${getIds(concreteCategoryIds)}&sex=${sex}`
   );
 

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { GetStaticProps } from 'next'
 import { IItem } from '../types'
 import { endPoint } from '../utils/constants'
-import useInfiteScroll from '../hooks/useInfiteScroll'
+import useInfiniteScroll from '../hooks/useInfiniteScroll'
 import Item from '../Components/Item/Item'
 import ItemsContainer from '../Layouts/ItemsContainer/ItemsContainer'
 import Loader from '../Components/Loader/Loader'
@@ -12,7 +12,7 @@ type IHomeProps = {
 }
 
 const Home = (props: IHomeProps) => {
-  const {items, isLoading} = useInfiteScroll('');
+  const {items, isLoading} = useInfiniteScroll('');
 
   return (
     <>
