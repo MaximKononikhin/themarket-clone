@@ -8,9 +8,11 @@ import CategoriesModal from '../CategoriesModal/CategoriesModal';
 import s from './Header.module.scss';
 
 const getUrl = (data: ICategoriesList) => {
-  const ids = data.categories.flatMap(category => category.categoriesIds);
+  const ids = data.categories.map(category => category.categoriesIds);
   return `/categories/search?${ids.map(id => `&concreteCategoryIds=${id}`).join('')}&sex=${data.sex}`
 }
+
+
 
 type IProps = {
   onSignInBtnClick: () => void;
