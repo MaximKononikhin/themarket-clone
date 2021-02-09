@@ -1,8 +1,5 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import Item from '../../Components/Item/Item';
-import Loader from '../../Components/Loader/Loader';
-import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import ItemsContainer from '../../Layouts/ItemsContainer/ItemsContainer';
 import { IItem } from '../../types';
 import { endPoint } from '../../utils/constants';
@@ -14,21 +11,7 @@ type IProps = {
 const SearchPage: React.FC<IProps> = (props) => {
   const {name} = useRouter().query;
 
-  const {items, isLoading} = useInfiniteScroll(`query=${name}`)
-
-  return (
-    <>
-      <ItemsContainer>
-        {props.data.map(item =>
-          <Item data={item} key={item.id}/>
-        )}
-        {items.map(item =>
-          <Item data={item} key={item.id}/>
-        )}
-      </ItemsContainer>
-      {isLoading && <Loader />}
-    </>
-  )
+  return <ItemsContainer data={props.data} url={`query=${name}`}/>
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ req, res, query }) => {
