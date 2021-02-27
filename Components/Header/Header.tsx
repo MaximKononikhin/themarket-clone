@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { ICategoriesList } from '../../types';
 import { menCategory, womenCategory } from '../../utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
+import CategoriesModalMobile from '../CategoriesModalMobile/CategoriesModalMobile';
 
 import s from './Header.module.scss';
 
@@ -21,22 +22,25 @@ type IProps = {
 const Header: React.FC<IProps> = (props) => {
   const [data, setData] = useState<ICategoriesList | null>(null);
   const [search, setSearch] = useState('');
+  const [isModalShown, setModalShown] = useState(false);
 
   const router = useRouter();
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    router.push({
-      pathname: '/search/[name]',
-      query: {name: search}
-    })
+    
+    if (search.length > 0) {
+      router.push({
+        pathname: '/search/[name]',
+        query: {name: search}
+      })
+    }
   }
   
   return (
     <header className={s.mainHeader}>
       <div className={s.mainHeader__wrapper}>
-        <button className={s.mainHeader__burgerBtn}>
+        <button className={s.mainHeader__burgerBtn} onClick={() => setModalShown(!isModalShown)}>
           <img src="/images/hamburger.svg" width="20" height="20" alt="menu-btn"/>
         </button>
         <div className={s.mainHeader__logo}>
@@ -76,6 +80,9 @@ const Header: React.FC<IProps> = (props) => {
           onMouseEnter={() => setData(data)}
           onMouseLeave={() => setData(null)}
         />
+      )}
+      {isModalShown && (
+        <CategoriesModalMobile closeModal={() => setModalShown(false)}/>
       )}
     </header>
   )

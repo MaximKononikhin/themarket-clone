@@ -1,0 +1,44 @@
+@keyframes show {
+  0% {
+    transform: translateX(-260px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes hide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-260px);
+  }
+}
+
+.categoreisModal {
+  position: fixed;
+  top: 71px;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.wrapper {
+  width: 276px;
+  height: 100%;
+
+  background-color: #fff;
+
+  animation: show .3s;
+
+  &_hide {
+    animation: hide .3s;
+  }
+}
+
