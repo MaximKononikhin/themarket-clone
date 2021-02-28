@@ -8,16 +8,6 @@
   }
 }
 
-@keyframes hide {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-260px);
-  }
-}
-
 .categoreisModal {
   position: fixed;
   top: 71px;

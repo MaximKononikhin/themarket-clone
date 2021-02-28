@@ -1,10 +1,12 @@
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import usePrevious from '../../hooks/usePrevious';
 import { ICategoriesList } from '../../types';
 import { menCategory, womenCategory } from '../../utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
 import CategoriesModalMobile from '../CategoriesModalMobile/CategoriesModalMobile';
+import SearchInput from '../SearchInput/SearchInput';
 
 import s from './Header.module.scss';
 
@@ -13,29 +15,23 @@ const getUrl = (data: ICategoriesList) => {
   return `/categories/search?${ids.map(id => `&concreteCategoryIds=${id}`).join('')}&sex=${data.sex}`
 }
 
-
-
 type IProps = {
   onSignInBtnClick: () => void;
 }
 
 const Header: React.FC<IProps> = (props) => {
   const [data, setData] = useState<ICategoriesList | null>(null);
-  const [search, setSearch] = useState('');
   const [isModalShown, setModalShown] = useState(false);
 
   const router = useRouter();
 
-  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    
-    if (search.length > 0) {
-      router.push({
-        pathname: '/search/[name]',
-        query: {name: search}
-      })
+  const previousLocation = usePrevious(router.asPath);
+
+  useEffect(() => {
+    if (previousLocation !== router.asPath) {
+      setModalShown(false);
     }
-  }
+  }, [previousLocation, router])
   
   return (
     <header className={s.mainHeader}>
@@ -48,12 +44,7 @@ const Header: React.FC<IProps> = (props) => {
             <img src="/images/logo_header.svg" width="80" height="12" alt="logo"/>
           </Link>
         </div>
-        <form className={s.mainHeader__searchForm} onSubmit={handleSubmit}>
-          <input type="text" placeholder="Поиск"
-            value={search}
-            onChange={(evt) => setSearch(evt.target.value)}
-          />
-        </form>
+        <SearchInput />
         <ul className={s.mainHeader__categoriesList}>
           <li 
             onMouseEnter={() => setData(menCategory)}

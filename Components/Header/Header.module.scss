@@ -61,52 +61,7 @@
   }
 }
 
-.mainHeader__searchForm {
-  position: relative;
 
-  display: flex;
-  flex-grow: 1;
-
-  border: 1px solid #979797;
-  border-radius: 2px;
-
-  margin-right: 20px;
-
-  @media (min-width: 930px) {
-    
-  max-width: 350px;
-  }
-
-  &::before {
-    content: '';
-
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-
-    background: url(/images/loop.svg) no-repeat 50%;
-  }
-
-  input {
-    width: 100%;
-    height: 36px;
-
-    padding-left: 35px;
-    padding-right: 10px;
-
-    font-weight: 600;
-    font-size: 15px;
-
-    border: none;
-    outline: none;
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
 
 .mainHeader__categoriesList {
   display: flex;

@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    height: 50px;
+    position: relative;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 20px;
+    padding: 15px 20px;
+  }
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0 20px;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    padding: 0;
+    margin-right: 20px;
+
+    font-size: 20px;
+  }
+
+  h2 {
+    margin: 0;
+
+    font-size: 19px;
+    line-height: 25px;
+  }
+}
