@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IItem } from '../types';
-import { endPoint } from '../utils/constants';
+import { makeApiCall } from '../services/api';
 
 const useInfiniteScroll = (url: string) => {
   const [skip, setSkip] = useState(0);
@@ -11,9 +11,8 @@ const useInfiniteScroll = (url: string) => {
     const infiniteScroll = async () => {
       if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !isLoading) {
         setLoading(true);
-        const res =  await fetch(`${endPoint}/items?${url}&skip=${skip + 18}`);
-        const result = await res.json();
-        setItems([...items, ...result]);
+        const result = await makeApiCall<IItem[]>(`items?${url}&skip=${skip + 18}`, {method: 'GET'});
+        setItems((prev) => [...prev, ...result]);
         setSkip(prevSkip => prevSkip + 18);
         setLoading(false);
       }

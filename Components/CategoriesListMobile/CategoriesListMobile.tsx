@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react'
 
 import { ICategoriesList } from '../../types';
-import { menCategory, womenCategory } from '../../utils/constants';
+import { menCategory, womenCategory } from '../../services/utils/constants';
 
 import s from './CategoriesListMobile.module.scss';
 

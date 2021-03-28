@@ -5,8 +5,8 @@ import { virtualize } from 'react-swipeable-views-utils';
 import Review from '../../Components/Review/Review';
 
 import { IItem, IReview, IUser } from '../../types';
-import { endPoint } from '../../utils/constants';
 import s from './itemPage.module.scss';
+import { makeApiCall } from '../../services/api';
 
 type IProps = {
   item: IItem,
@@ -163,8 +163,6 @@ const SearchPage: React.FC<IProps> = ({ item, user, reviewsArray }) => {
             )}
           </div>
         }
-
-
       </div>
     </div>
 
@@ -175,12 +173,9 @@ const SearchPage: React.FC<IProps> = ({ item, user, reviewsArray }) => {
 
 export const getServerSideProps: GetServerSideProps<IProps> = async ({ req, res, query }) => {
   const { name } = query;
-  const itemResult = await fetch(`${endPoint}/items/${name}`);
-  const item: IItem = await itemResult.json();
-  const userResult = await fetch(`${endPoint}/users/${item.userId}`);
-  const user: IUser = await userResult.json();
-  const reviewsResult = await fetch(`${endPoint}/users/${item.userId}/reviews?type=supplier`);
-  const reviewsArray = await reviewsResult.json();
+  const item = await makeApiCall<IItem>(`items/${name}`, {method: 'GET'});
+  const user = await makeApiCall<IUser>(`users/${item.userId}`, {method: 'GET'});
+  const reviewsArray = await makeApiCall<IReview[]>(`users/${item.userId}/reviews?type=supplier`, {method: 'GET'})
   return {
     props: {
       item,

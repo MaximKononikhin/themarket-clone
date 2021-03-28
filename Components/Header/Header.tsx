@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FormEvent, useEffect, useState } from 'react';
 import usePrevious from '../../hooks/usePrevious';
 import { ICategoriesList } from '../../types';
-import { menCategory, womenCategory } from '../../utils/constants';
+import { menCategory, womenCategory } from '../../services/utils/constants';
 import CategoriesModal from '../CategoriesModal/CategoriesModal';
 import CategoriesModalMobile from '../CategoriesModalMobile/CategoriesModalMobile';
 import SearchInput from '../SearchInput/SearchInput';

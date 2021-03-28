@@ -1,4 +1,4 @@
-import { ICategoriesList } from "../types";
+import { ICategoriesList } from "../../types";
 
 export const endPoint = 'https://api.themarket.io';
 
